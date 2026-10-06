@@ -1,0 +1,29 @@
+{% extends "faculty/base.html" %}
+{% block title %}{% if content %}{{ content.title }}{% else %}Факультет історії{% endif %}{% endblock %}
+{% block content %}
+{% if content %}
+<section class="hero">
+    <h1>{{ content.title }}</h1>
+    {% if content.tagline %}<p class="tagline">{{ content.tagline }}</p>{% endif %}
+</section>
+
+<section class="card">
+    <h2>Про факультет</h2>
+    {{ content.description|linebreaks }}
+</section>
+
+<section class="card">
+    <h2>Контакти</h2>
+    <ul class="plain">
+        {% if content.address %}<li><strong>Адреса:</strong> {{ content.address }}</li>{% endif %}
+        {% if content.phone %}<li><strong>Телефон:</strong> {{ content.phone }}</li>{% endif %}
+        {% if content.email %}<li><strong>E-mail:</strong> <a href="mailto:{{ content.email }}">{{ content.email }}</a></li>{% endif %}
+    </ul>
+</section>
+{% else %}
+<section class="card">
+    <h1>Факультет історії</h1>
+    <p>Текст головної сторінки ще не заповнено. Додайте його в адмінці.</p>
+</section>
+{% endif %}
+{% endblock %}

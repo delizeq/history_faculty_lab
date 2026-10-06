@@ -1,0 +1,38 @@
+{% extends "faculty/base.html" %}
+{% block title %}{{ department.name }} · Факультет історії{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="{% url 'department_list' %}">← Усі кафедри</a></p>
+<h1>{{ department.name }}</h1>
+<p class="meta">Завідувач кафедри: {{ department.head }}</p>
+
+{% if department.programs.all %}
+<section class="card">
+    <h2>Спеціальності, для яких кафедра є випусковою</h2>
+    <ul>
+        {% for program in department.programs.all %}
+        <li><a href="{% url 'program_detail' program.pk %}">{{ program.code }} {{ program.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+
+<section class="card">
+    <h2>Викладачі</h2>
+    {% if department.teachers.all %}
+    <table class="table">
+        <thead><tr><th>Імʼя</th><th>Посада</th><th>Науковий ступінь</th></tr></thead>
+        <tbody>
+        {% for teacher in department.teachers.all %}
+        <tr>
+            <td>{{ teacher.name }}</td>
+            <td>{{ teacher.position }}</td>
+            <td>{{ teacher.degree|default:"—" }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Викладачів поки не додано.</p>
+    {% endif %}
+</section>
+{% endblock %}

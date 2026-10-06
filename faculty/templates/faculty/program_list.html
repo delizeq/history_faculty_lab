@@ -1,0 +1,18 @@
+{% extends "faculty/base.html" %}
+{% block title %}Спеціальності · Факультет історії{% endblock %}
+{% block content %}
+<h1>Спеціальності</h1>
+{% for program in programs %}
+<article class="card">
+    <h2><a href="{% url 'program_detail' program.pk %}">{{ program.name }}</a></h2>
+    <p class="meta">Код: <strong>{{ program.code }}</strong></p>
+    <p>{{ program.description|truncatewords:50 }}</p>
+    <p class="meta">
+        Координатор набору: {{ program.coordinator_name }},
+        <a href="mailto:{{ program.coordinator_contact }}">{{ program.coordinator_contact }}</a>
+    </p>
+</article>
+{% empty %}
+<p>Спеціальностей поки немає.</p>
+{% endfor %}
+{% endblock %}

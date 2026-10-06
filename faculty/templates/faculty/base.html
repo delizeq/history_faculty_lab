@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Факультет історії{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'faculty/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="{% url 'home' %}">Факультет історії</a>
+        <nav class="nav">
+            <a href="{% url 'home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}>Головна</a>
+            <a href="{% url 'department_list' %}" {% if 'department' in request.resolver_match.url_name %}class="active"{% endif %}>Кафедри</a>
+            <a href="{% url 'program_list' %}" {% if 'program' in request.resolver_match.url_name %}class="active"{% endif %}>Спеціальності</a>
+            <a href="{% url 'exchange_list' %}" {% if request.resolver_match.url_name == 'exchange_list' %}class="active"{% endif %}>Обмін</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <div class="container">Факультет історії · навчальний проєкт</div>
+</footer>
+</body>
+</html>

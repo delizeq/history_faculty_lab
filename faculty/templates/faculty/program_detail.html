@@ -1,0 +1,27 @@
+{% extends "faculty/base.html" %}
+{% block title %}{{ program.name }} · Факультет історії{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="{% url 'program_list' %}">← Усі спеціальності</a></p>
+<h1>{{ program.name }}</h1>
+<p class="meta">Код: <strong>{{ program.code }}</strong> ·
+    Випускова кафедра: <a href="{% url 'department_detail' program.department.pk %}">{{ program.department.name }}</a></p>
+
+<section class="card">
+    <h2>Опис</h2>
+    {{ program.description|linebreaks }}
+</section>
+
+<section class="card">
+    <h2>Координатор набору</h2>
+    <p>{{ program.coordinator_name }}, <a href="mailto:{{ program.coordinator_contact }}">{{ program.coordinator_contact }}</a></p>
+</section>
+
+{% if program.subject_list %}
+<section class="card">
+    <h2>Дисципліни</h2>
+    <ul>
+        {% for subject in program.subject_list %}<li>{{ subject }}</li>{% endfor %}
+    </ul>
+</section>
+{% endif %}
+{% endblock %}
