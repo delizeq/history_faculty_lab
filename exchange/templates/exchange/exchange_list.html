@@ -1,0 +1,32 @@
+{% extends "faculty/base.html" %}
+{% block title %}Академічний обмін · Факультет історії{% endblock %}
+{% block content %}
+<h1>Програми академічного обміну</h1>
+
+<p class="filters">
+    Країна:
+    <a href="{% url 'exchange_list' %}" {% if not selected %}class="chip active"{% else %}class="chip"{% endif %}>Усі</a>
+    {% for country in countries %}
+    <a href="?country={{ country|urlencode }}" {% if country == selected %}class="chip active"{% else %}class="chip"{% endif %}>{{ country }}</a>
+    {% endfor %}
+</p>
+
+{% for program in programs %}
+<article class="card">
+    <h2>{{ program.university }}
+        {% if program.is_open %}
+        <span class="badge badge-open">Прийом триває</span>
+        {% else %}
+        <span class="badge badge-closed">Прийом завершено</span>
+        {% endif %}
+    </h2>
+    <p class="meta">
+        {{ program.country }} · Мови навчання: {{ program.languages }} ·
+        Місць: {{ program.seats }} · Дедлайн: {{ program.deadline|date:"d.m.Y" }}
+    </p>
+    <p>{{ program.description }}</p>
+</article>
+{% empty %}
+<p>Програм обміну поки немає.</p>
+{% endfor %}
+{% endblock %}
